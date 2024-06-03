@@ -1,0 +1,21 @@
+{
+  "name": "@coldrun/core",
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": true,
+  "main": "./index.ts",
+  "files": [
+    "src"
+  ],
+  "devDependencies": {
+    "@nuxt/kit": "latest",
+    "@nuxt/module-builder": "latest",
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@coldrun/types": "workspace:*"
+  }
+}
