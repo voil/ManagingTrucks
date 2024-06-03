@@ -3,13 +3,13 @@
     @submit="onSubmit"
     class="grid grid-cols-[max-content_1fr_1fr] md:grid-cols-[repeat(5,max-content)] justify-end items-center gap-2"
   >
-    <span>{{ $t("labels.sort.title") }}</span>
+    <span>{{ t("labels.sort.title") }}</span>
     <Dropdown
       v-model="columnValue"
       :options="columns"
       option-label="name"
       option-value="column"
-      :placeholder="$t('labels.column')"
+      :placeholder="t('labels.column')"
       class="w-full md:w-14rem"
     />
     <Dropdown
@@ -17,20 +17,20 @@
       :options="sortTypes"
       option-label="name"
       option-value="type"
-      :placeholder="$t('labels.type')"
+      :placeholder="t('labels.type')"
       class="w-full md:w-14rem"
     />
     <div
       class="grid grid-cols-[repeat(2,max-content)] gap-x-2 justify-end col-span-3 md:col-auto"
     >
       <Button :disabled="!columnValue || !typeValue" type="submit">{{
-        $t("buttons.sort")
+        t("buttons.sort")
       }}</Button>
       <Button
         severity="secondary"
         @click="handleReset"
         :disabled="!columnValue || !typeValue"
-        >{{ $t("buttons.reset") }}</Button
+        >{{ t("buttons.reset") }}</Button
       >
     </div>
   </form>

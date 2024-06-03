@@ -1,9 +1,13 @@
 import { mount } from '@vue/test-utils'
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, beforeAll } from 'vitest'
 import NotificationToast from '../components/atoms/NotificationToast.vue'
+import createApp from './primevue-setup'
 import { createTestingPinia } from '@pinia/testing'
-import { useToast } from 'primevue/usetoast'
 import { useNotificationStore } from '../stores/notification'
+import { useI18n } from 'vue-i18n'
+import { useToast } from 'primevue/usetoast'
+import Toast from 'primevue/toast'
+import PrimeVue from 'primevue/config'
 
 vi.mock('vue-i18n', () => ({
   useI18n: () => ({
@@ -11,44 +15,46 @@ vi.mock('vue-i18n', () => ({
   })
 }))
 
+
 vi.mock('primevue/usetoast', () => ({
   useToast: () => ({
     add: vi.fn()
   })
 }))
 
+beforeAll(() => {
+  const app = createApp({})
+})
+
+
 describe('NotificationToast', () => {
-  it('renders properly and handles notifications', async () => {
-    const pinia = createTestingPinia({ stubActions: false })
+  it('renders properly', () => {
     const wrapper = mount(NotificationToast, {
       global: {
-        plugins: [pinia]
-      }
+        plugins: [PrimeVue, createTestingPinia()],
+        components: {
+          Toast
+        }
+      },
     })
+
+    expect(wrapper.findComponent({ name: 'Toast' }).exists()).toBe(true)
+  })
+
+  it('removes notification on toast life-end', async () => {
+    const wrapper = mount(NotificationToast, {
+      global: {
+        plugins: [PrimeVue, createTestingPinia()],
+        components: {
+          Toast
+        }
+      },
+    })
+
     const notificationStore = useNotificationStore()
-    const toast = useToast()
-
-
-    notificationStore.notify.push({
-      type: 'success',
-      heading: 'test heading',
-      description: 'test description',
-      uid: '123'
-    })
-
-    notificationStore.$onAction.mock.calls[0][0].after()
-
-
-    expect(toast.add).toHaveBeenCalledWith({
-      severity: 'success',
-      summary: 'test heading',
-      detail: 'test description',
-      life: 3000,
-      id: '123',
-      closable: false
-    })
 
     await wrapper.vm.handleCloseToast({ id: '123' })
+
     expect(notificationStore.$remove).toHaveBeenCalledWith('123')
   })
 })

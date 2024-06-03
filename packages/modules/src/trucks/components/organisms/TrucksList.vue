@@ -46,7 +46,7 @@
       </template>
     </DataView>
     <Paginator
-      :always-show="false"
+      v-if="trucksStore.total > appConfig.list.default"
       :rows="appConfig.list.default"
       :totalRecords="trucksStore.$total"
       :rowsPerPageOptions="appConfig.list.limits"
