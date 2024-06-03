@@ -15,3 +15,9 @@ bun run dev
 ```bash
 bun run tes
 ```
+
+## Link to page
+
+```bash
+http://localhost:3000/managing-truck
+```
