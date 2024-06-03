@@ -46,7 +46,7 @@
       </template>
     </DataView>
     <Paginator
-      v-if="trucksStore.total > appConfig.list.default"
+      v-if="(trucksStore.$total ?? 0) > appConfig.list.default"
       :rows="appConfig.list.default"
       :totalRecords="trucksStore.$total"
       :rowsPerPageOptions="appConfig.list.limits"

@@ -1,10 +1,7 @@
 import { defineNuxtModule } from '@nuxt/kit'
 
 export default defineNuxtModule({
-  meta: {
-    name: 'Starter core',
-    configKey: 'composable'
-  },
+  meta: {},
   defaults: {},
   async setup(moduleOptions, nuxt) { }
 })
